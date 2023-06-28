@@ -27,3 +27,18 @@ accelerator:
           value: "11"
         - text: 17 (Recommended)
           value: "17"
+
+engine:
+  merge: 
+    #
+    # include all files except the ones that we might not need
+    #
+    - include: [ "**/**" ]
+      exclude: [ "settings-template.sh", "snippets/**" ]
+    - include: [ "pom.xml" ]
+      chain:
+        - type: ReplaceText
+          condition: "#javaVersion == '11'"
+          substitutions:
+            - text: <java.version>17</java.version>
+              with: "'<java.version>11</java.version>'"
